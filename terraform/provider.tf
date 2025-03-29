@@ -8,12 +8,12 @@ terraform {
       version = "~> 3.0.1"
     }
 
-    local     = {
+    local = {
       source  = "hashicorp/local"
       version = "2.5.2"
     }
 
-    vsphere   = {
+    vsphere = {
       source  = "hashicorp/vsphere"
       version = "2.11.1"
     }

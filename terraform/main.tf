@@ -1,29 +1,29 @@
 data "vsphere_datacenter" "datacenter" {
-  name             = var.vc_datacenter
+  name = var.vc_datacenter
 }
 
 data "vsphere_datastore" "datastore" {
-  name             = var.vc_datastore
-  datacenter_id    = data.vsphere_datacenter.datacenter.id
+  name          = var.vc_datastore
+  datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
 data "vsphere_compute_cluster" "cluster" {
-  name             = var.vc_cluster
-  datacenter_id    = data.vsphere_datacenter.datacenter.id
+  name          = var.vc_cluster
+  datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
 data "vsphere_network" "network" {
-  name             = var.vc_network
-  datacenter_id    = data.vsphere_datacenter.datacenter.id
+  name          = var.vc_network
+  datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
 data "vsphere_virtual_machine" "template" {
-  name             = var.vc_template
-  datacenter_id    = data.vsphere_datacenter.datacenter.id
+  name          = var.vc_template
+  datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
 data "vsphere_guest_os_customization" "linux" {
-  name             = var.vc_custom_spec
+  name = var.vc_custom_spec
 }
 
 resource "vsphere_virtual_machine" "vm_app" {
@@ -37,8 +37,8 @@ resource "vsphere_virtual_machine" "vm_app" {
   guest_id         = data.vsphere_virtual_machine.template.guest_id
   scsi_type        = data.vsphere_virtual_machine.template.scsi_type
   network_interface {
-    network_id     = data.vsphere_network.network.id
-    adapter_type   = data.vsphere_virtual_machine.template.network_interface_types[0]
+    network_id   = data.vsphere_network.network.id
+    adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
   }
   disk {
     label            = "Hard Disk 1"
@@ -64,8 +64,8 @@ resource "vsphere_virtual_machine" "vm_lb" {
   guest_id         = data.vsphere_virtual_machine.template.guest_id
   scsi_type        = data.vsphere_virtual_machine.template.scsi_type
   network_interface {
-    network_id     = data.vsphere_network.network.id
-    adapter_type   = data.vsphere_virtual_machine.template.network_interface_types[0]
+    network_id   = data.vsphere_network.network.id
+    adapter_type = data.vsphere_virtual_machine.template.network_interface_types[0]
   }
   disk {
     label            = "Hard Disk 1"
@@ -83,8 +83,8 @@ resource "vsphere_virtual_machine" "vm_lb" {
 resource "local_file" "ansible_inventory" {
   content = templatefile(var.ansible_inventory_template,
     {
-      vms_app = [ for vm in vsphere_virtual_machine.vm_app: "${vm.default_ip_address} hostname=${vm.name}" ]
-      vms_lb  = [ for vm in vsphere_virtual_machine.vm_lb:  "${vm.default_ip_address} hostname=${vm.name}" ]
+      vms_app = [for vm in vsphere_virtual_machine.vm_app : "${vm.default_ip_address} hostname=${vm.name}"]
+      vms_lb  = [for vm in vsphere_virtual_machine.vm_lb : "${vm.default_ip_address} hostname=${vm.name}"]
     }
   )
   filename = var.ansible_inventory_file
