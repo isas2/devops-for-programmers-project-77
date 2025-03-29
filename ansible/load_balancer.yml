@@ -1,0 +1,5 @@
+- hosts: loadbalancers
+  become: true
+  roles:
+    - role: hispanico.nginx_revproxy
+      tags: lb

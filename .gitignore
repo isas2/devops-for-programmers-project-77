@@ -1,0 +1,4 @@
+/ansible/.vault_pas
+/terraform/secrets/s3.yml.dec
+/terraform/.terraform/
+/terraform/.terraform.lock.hcl

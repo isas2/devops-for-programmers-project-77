@@ -1,0 +1,16 @@
+---
+nginx_revproxy_sites:
+  default:
+    ssl: false
+    letsencrypt: false
+
+  redmine.zabedu.ru:
+    domains:
+      - redmine.zabedu.ru
+    upstreams: "{{ groups.webservers |
+               map('community.general.dict_kv', 'backend_address') |
+               map('combine', { 'backend_port': redmine.app.published_port }) }}"
+    listen: 80
+    ssl: false
+    letsencrypt: false
+    conn_upgrade: true
