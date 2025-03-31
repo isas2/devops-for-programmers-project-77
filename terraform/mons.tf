@@ -10,7 +10,7 @@ resource "datadog_monitor" "healthcheck_local" {
     ok       = 1
   }
 
-  priority = 2
+  priority          = 2
   notify_audit      = false
   notify_no_data    = true
   no_data_timeframe = 2
@@ -32,7 +32,7 @@ resource "datadog_monitor" "healthcheck_remote" {
     ok       = 1
   }
 
-  priority = 2
+  priority          = 2
   notify_audit      = false
   notify_no_data    = true
   no_data_timeframe = 2
