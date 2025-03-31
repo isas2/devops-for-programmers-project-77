@@ -18,11 +18,12 @@
     - install ansible requirements
     - create vault.yml if necessary
     - create .vault_pas if necessary
-4. Prepare your terratorm and ansible secrets. Skip this step if you have the correct file .vault_pas for your infrastructure/application.
+4. Prepare your terratorm and ansible secrets. Skip this step if you have the correct file .vault_pas for your infrastructure/application. The project assumes the use of an external DB.
     <ol type="a">
     <li>Put your password for ansible-vault to a file ansible/.vault_pas or generate a new password with: `make pas-gen`</li>
     <li>Save your DB password, application secret and DataDog API key in ansible/group_vars/webservers/vault.yml</li>
-    <li>Encrypt DB password with ansible-vault: `make pas-enc-db`. For edit encrypted data use: `make pas-db`</li>
+    <li>Save your DataDog secrets in terraform/secrets/datadog.yml. For edit encrypted data use: `make pas-dd`.</li>
+    <li>Encrypt DB password with ansible-vault: `make pas-enc-db`. For edit encrypted data use: `make pas-db`.</li>
     <li>Decrypt backend secrets `make pas-s3` or create a new file in terraform/secrets/s3.yml.dec (see file s3.yml.example)</li>
     <li>Edit vSphere secrets file `make pas-vsphere` or create and encode a new file in terraform/secrets/vsphere.yml (see file vsphere.yml.example)</li>
     </ol>
@@ -48,6 +49,7 @@
 - `make pas-gen` generate new ansible-vault password;
 - `make pas-s3` decrypt S3 backend secrets;
 - `make pas-vsphere` edit encrypted vsphere vault.yml file;
+- `make pas-dd` edit encrypted datadog.yml file;
 - `make pas-db` edit encrypted application vault.yml file;
 - `make pas-enc-db` encrypt application vault.yml file;
 
@@ -58,7 +60,9 @@
 - `make destroy` destroy infrastructure;
 - `make pas-dec-s3` decrypt S3 bakend secrets;
 - `make pas-enc-vsphere` encrypt vsphere vault.yml with ansible-vault;
+- `make pas-enc-dd` encrypt datadog.yml with ansible-vault;
 - `make pas-edit-vsphere` edit encrypted vsphere vault.yml file;
+- `make pas-edit-dd` edit encrypted datadog.yml file;
 
 ## Commands available from the ansible directory
 

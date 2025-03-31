@@ -5,14 +5,20 @@ datadog_checks:
   http_check:
     init_config:
     instances:
-    - name: redmine_http_check
+    - name: redmine_local_check
       url: http://localhost:{{ redmine.app.published_port }}
+      timeout: 15
+      min_collection_interval: 15
+
+    - name: redmine_remote_check
+      url: https://{{ redmine.app.published_dns }}
       timeout: 15
       min_collection_interval: 15
 
 redmine:
   app:
     published_port: 80
+    published_dns: redmine.zabedu.ru
   db:
     host: redmine-db.zabedu.ru
     port: 6432

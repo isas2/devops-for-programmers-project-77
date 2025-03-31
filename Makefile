@@ -5,7 +5,10 @@ pas-s3:
 	make -C terraform pas-dec-s3
 
 pas-vsphere:
-	make -C terraform pas-edit vsphere
+	make -C terraform pas-edit-vsphere
+
+pas-dd:
+	make -C terraform pas-edit-dd
 
 pas-db:
 	make -C ansible pas-edit

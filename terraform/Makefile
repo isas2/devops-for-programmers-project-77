@@ -8,6 +8,12 @@ pas-dec-s3:
 pas-enc-vsphere:
 	ansible-vault encrypt secrets/vsphere.yml --vault-password-file ../ansible/.vault_pas
 
+pas-enc-dd:
+	ansible-vault encrypt secrets/datadog.yml --vault-password-file ../ansible/.vault_pas
+
+pas-edit-dd:
+	ansible-vault edit secrets/datadog.yml --vault-password-file ../ansible/.vault_pas
+
 pas-edit-vsphere:
 	ansible-vault edit secrets/vsphere.yml --vault-password-file ../ansible/.vault_pas
 
